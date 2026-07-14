@@ -1,5 +1,5 @@
 const FEATURE_LINKS = [
-    { label: 'Link Shortener', href: '/link-shortener' },
+    { label: 'Link Shortener', href: '/test' },
     { label: 'Pages Customization', href: '/pages-customization' },
     { label: 'QR Code Generator', href: '/qr-code-generator' },
     { label: 'Advanced Analytics', href: '/advanced-analytics' },

@@ -17,7 +17,6 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
             </main>
 
             <Footer />
-
         </div>
     );
 }

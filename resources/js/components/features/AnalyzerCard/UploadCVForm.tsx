@@ -27,7 +27,7 @@ export default function UploadCVForm() {
                     id="cv-upload"
                     onChange={handleFileChange}
                     className="analyzer-form__file-input"
-                    accept=".pdf,.doc,.docx"
+                    accept=".pdf"
                     required
                 />
             </div>
