@@ -14,30 +14,22 @@
    Design Tokens & CSS Variables
    ========================================================================== */
 :root {
-    --color-primary: #000000;
-    --color-primary-hover: #333333;
-    --color-surface: #ffffff;
-    --color-surface-muted: #f9fafb;
-    --color-border: #e5e7eb;
-    --color-text-main: #111827;
-    --color-text-muted: #6b7280;
+    --color-background: #F6F3EE;
+    --color-surface: #FFFFFF;
 
-    --font-size-base: 16px;
-    --border-radius-md: 8px;
-    --border-radius-lg: 12px;
-    --border-radius-pill: 9999px;
-    
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    
-    --spacing-container: 1rem;
-    --max-width-container: 1200px;
+    --color-text: #2D2B28;
+    --color-text-secondary: #6D675F;
+
+    --color-border: #E3DDD4;
+
+    --color-primary: #9B7157;
+    --color-primary-hover: #8A624B;
 }
 
 body {
     font-family: var(--font-sans);
-    color: var(--color-text-main);
-    background-color: var(--color-surface);
+    color: var(--color-text);
+    background: var(--color-background);
     margin: 0;
     padding: 0;
     line-height: 1.5;
@@ -65,7 +57,7 @@ body {
     left: 0;
 
     width: 100%;
-    height: 65px;
+    height: 55px;
 
     padding: 0 2rem;
 
@@ -73,11 +65,17 @@ body {
     align-items: center;
     justify-content: space-between;
 
-    background: white;
-    border-bottom: 1px solid #e5e7eb;
-
-    box-shadow: 0 1px 3px rgba(0,0,0,.08);
     z-index: 100;
+
+    /* background: var(--color-background);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--color-border); */
+
+    background: rgba(246, 243, 238, 0.5); /* sesuaikan dengan warna background */
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    border-bottom: 1px solid rgba(227, 221, 212, 0.7);
 }
 .nav-logo__text {
     font-size: 1.5rem;
@@ -106,9 +104,9 @@ body {
     margin: 0;
     padding: 0;
 
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 500;
-    color: #52525b;
+    color: var(--color-text);
 
     font-family: "Geist Sans", sans-serif;
 }
@@ -164,65 +162,137 @@ body {
 .hero-section {
     padding: 4rem var(--spacing-container);
     text-align: center;
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
-    padding-top: 150px;
+    padding-top: 100px;
+    padding-bottom: 150px;
+    background: var(--color-background);
+
 }
 
 .hero-section__headline {
-    font-size: 2.5rem;
+    font-size: 1rem;
     font-weight: 800;
     line-height: 1.2;
-    margin-bottom: 1rem;
+    margin-bottom: 5px;
     text-transform: uppercase;
+}
+.hero-section__subheadline {
+    max-width: 680px;
+    margin: 2px auto 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: #64748b;
+    text-align: center;
 }
 
 @media (min-width: 768px) {
     .hero-section__headline {
-        font-size: 3.5rem;
+        font-size: 1.5rem;
     }
 }
 
-.hero-section__subheadline {
-    color: var(--color-text-muted);
-    font-size: 1.125rem;
-    margin-bottom: 3rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    font-family: 'Geist Mono', monospace;
+.hero-job-roles {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    margin-top: 10rem;
+
+    gap: 2rem;
+}
+
+.hero-job-role {
+    position: relative;
+
+    font-family: "Geist", sans-serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1;
+
+    color: #4b5563;
+
+    cursor: default;
+
+    transition:
+        color 0.25s ease,
+        transform 0.25s ease;
+
+    white-space: nowrap;
+}
+
+.hero-job-role:hover {
+    color: #111827;
+    transform: translateY(-2px);
+}
+
+.hero-job-role::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+
+    width: 0;
+    height: 2px;
+
+    background: #111827;
+    border-radius: 999px;
+
+    transition: width 0.25s ease;
+}
+
+.hero-job-role:hover::after {
+    width: 100%;
+}
+
+.hero-job-role:hover {
+    color: #000;
+    transform: translateY(-2px);
 }
 
 /* ==========================================================================
    Analyzer Card (Step 5)
    ========================================================================== */
 .analyzer-card {
+    width: 100%;
+    max-width: 650px;
+    margin: 2rem auto;
+
     background: var(--color-surface);
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--color-border);
     border-radius: 20px;
 
     box-shadow:
-    0 4px 10px rgba(0, 0, 0, 0.08),
-    0 16px 48px rgba(0, 0, 0, 0.14);
+        0 6px 16px rgba(45, 43, 40, 0.05),
+        0 18px 40px rgba(45, 43, 40, 0.08);
 
     overflow: hidden;
     text-align: left;
 
     transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        border-color 0.25s ease;
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
 }
 
 .analyzer-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-3px);
 
-    border-color: rgba(0, 0, 0, 0.12);
+    border-color: #d8d0c6;
 
     box-shadow:
-        0 4px 12px rgba(0, 0, 0, 0.08),
-        0 16px 40px rgba(0, 0, 0, 0.10);
+        0 10px 24px rgba(45, 43, 40, 0.06),
+        0 24px 48px rgba(45, 43, 40, 0.10);
 }
+
+/* ===========================
+   Tabs
+=========================== */
 
 .analyzer-card__tabs {
     display: flex;
@@ -236,42 +306,51 @@ body {
     justify-content: center;
     align-items: center;
 
-    padding: 1rem 0;
+    padding: 1rem;
 
     background: transparent;
     border: none;
     border-bottom: 2px solid transparent;
 
     font-family: "Geist", sans-serif;
-    font-size: 15px;
+    font-size: .95rem;
     font-weight: 500;
-    color: #737373;
 
+    color: var(--color-text-secondary);
     cursor: pointer;
 
     transition:
-        color 0.2s ease,
-        border-color 0.2s ease,
-        background-color 0.2s ease;
+        color .2s ease,
+        background-color .2s ease,
+        border-color .2s ease;
 }
 
 .analyzer-card__tab:hover {
-    color: #171717;
-    background: #fafafa;
+    background: #FCFAF7;
+    color: var(--color-text);
 }
 
 .analyzer-card__tab--active {
-    color: #171717;
+    background: var(--color-surface);
+
+    color: var(--color-text);
     font-weight: 600;
-    border-bottom-color: #171717;
-    background: #fff;
+
+    border-bottom-color: var(--color-primary);
 }
+
+/* ===========================
+   Content
+=========================== */
 
 .analyzer-card__content {
     padding: 2rem;
 }
 
-/* Forms inside Analyzer Card */
+/* ===========================
+   Form
+=========================== */
+
 .analyzer-form {
     display: flex;
     flex-direction: column;
@@ -281,79 +360,191 @@ body {
 .analyzer-form__group {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: .6rem;
 }
 
 .analyzer-form__label {
-    font-weight: 500;
-    color: var(--color-text-main);
+    font-weight: 600;
+    color: var(--color-text);
 }
 
 .analyzer-form__input {
-    padding: 0.75rem 1rem;
+    padding: .85rem 1rem;
+
+    background: var(--color-surface);
+
     border: 1px solid var(--color-border);
-    border-radius: var(--border-radius-md);
+    border-radius: 12px;
+
+    color: var(--color-text);
     font-size: 1rem;
+
     outline: none;
-    transition: border-color 0.2s;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+.analyzer-form__input::placeholder {
+    color: var(--color-text-secondary);
 }
 
 .analyzer-form__input:focus {
     border-color: var(--color-primary);
+
+    box-shadow:
+        0 0 0 3px rgba(155, 113, 87, .12);
 }
 
-.analyzer-form__submit {
-    margin-top: 0.5rem;
-    padding: 0.875rem;
-    background-color: var(--color-primary);
-    color: white;
-    border: none;
-    border-radius: var(--border-radius-md);
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.analyzer-form__submit:hover {
-    background-color: var(--color-primary-hover);
-}
-
-.analyzer-form__submit:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
+/* ===========================
+   Upload Area
+=========================== */
 
 .analyzer-form__upload-area {
-    border: 2px dashed var(--color-border);
-    border-radius: var(--border-radius-md);
-    padding: 3rem 1rem;
-    text-align: center;
     position: relative;
-    background-color: var(--color-surface-muted);
-    transition: border-color 0.2s;
+
+    padding: 3rem 1rem;
+
+    text-align: center;
+
+    background: #FCFAF7;
+
+    border: 2px dashed var(--color-border);
+    border-radius: 14px;
+
+    transition:
+        border-color .2s ease,
+        background-color .2s ease;
 }
 
 .analyzer-form__upload-area:hover {
+    background: #F8F4EE;
     border-color: var(--color-primary);
 }
 
 .analyzer-form__file-input {
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
+
     width: 100%;
     height: 100%;
+
     opacity: 0;
     cursor: pointer;
 }
 
 .analyzer-form__upload-label {
-    font-weight: 500;
-    color: var(--color-text-muted);
     pointer-events: none;
+
+    font-weight: 500;
+    color: var(--color-text-secondary);
 }
 
+.analyzer-form__uploaded-file{
+    display:flex;
+    align-items:center;
+    gap:1rem;
+
+    text-align:left;
+}
+
+.analyzer-form__uploaded-icon{
+    width:48px;
+    height:48px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    border-radius:12px;
+
+    background:#F3EAE3;
+    font-size:1.4rem;
+}
+
+.analyzer-form__uploaded-info{
+    flex:1;
+}
+
+.analyzer-form__uploaded-name{
+    font-size:1rem;
+    font-weight:600;
+    color:var(--color-text);
+}
+
+.analyzer-form__uploaded-meta{
+    margin-top:4px;
+
+    font-size:.875rem;
+    color:var(--color-text-secondary);
+}
+
+.analyzer-form__uploaded-status{
+    font-size:.875rem;
+    font-weight:600;
+    color:var(--color-primary);
+}
+/* ===========================
+   Button
+=========================== */
+
+.analyzer-form__submit {
+    margin-top: .25rem;
+
+    padding: .95rem 1rem;
+
+    background: var(--color-primary);
+    color: white;
+
+    border: none;
+    border-radius: 12px;
+
+    font-family: "Geist", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color .2s ease,
+        transform .15s ease,
+        box-shadow .2s ease;
+}
+
+.analyzer-form__submit:hover:not(:disabled) {
+    background: var(--color-primary-hover);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 20px rgba(155, 113, 87, .25);
+}
+
+.analyzer-form__submit:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.analyzer-form__submit:disabled {
+    background: #D8C6BA;
+    color: rgba(255,255,255,.85);
+
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.analyzer-section__headline {
+    margin-bottom: 0.75rem;
+
+    font-family: "Geist", sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+
+    color: #111827;
+    text-align: center;
+}
 /* ==========================================================================
    Footer (Step 6)
    ========================================================================== */

@@ -1,8 +1,5 @@
-import AnalyzerCard from '@/components/features/AnalyzerCard';
-
-const SUBHEADLINE =
-    'Upload your CV or enter your skill to see how you match with today job market. ' +
-    'We use AI-driven analysis to identify gap and career opportunities.';
+import JobRoles from './HeroRoles'
+import AnalyzerCard  from '@/components/features/AnalyzerCard';
 
 export default function HeroSection() {
     return (
@@ -12,11 +9,10 @@ export default function HeroSection() {
                     ARE YOUR SKILL INDUSTRY READY?
                 </h1>
                 <p className="hero-section__subheadline">
-                    {SUBHEADLINE}
+                    Analyze your skills with AI and discover the gap between your current abilities and your target career.
                 </p>
-
-                <AnalyzerCard />
             </div>
+            <AnalyzerCard/>
         </section>
     );
 }

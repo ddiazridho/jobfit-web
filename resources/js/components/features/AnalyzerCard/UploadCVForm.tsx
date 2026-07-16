@@ -20,7 +20,24 @@ export default function UploadCVForm() {
         <form onSubmit={handleSubmit} className="analyzer-form">
             <div className="analyzer-form__upload-area">
                 <label htmlFor="cv-upload" className="analyzer-form__upload-label">
-                    {file ? file.name : 'Click to select or drag and drop your CV here'}
+                    {file ? (
+                        <div className="analyzer-form__uploaded-file">
+                            <div className="analyzer-form__uploaded-icon">📄</div>
+                            <div className="analyzer-form__uploaded-info">
+                                <div className="analyzer-form__uploaded-name">
+                                    {file.name}
+                                </div>
+                                <div className="analyzer-form__uploaded-meta">
+                                    PDF • {(file.size / 1024 / 1024).toFixed(2)} MB
+                                </div>
+                            </div>
+                            <div className="analyzer-form__uploaded-status">
+                                ✓ Uploaded
+                            </div>
+                        </div>
+                    ) : (
+                        'Click to select or drag and drop your CV here'
+                    )}
                 </label>
                 <input
                     type="file"
