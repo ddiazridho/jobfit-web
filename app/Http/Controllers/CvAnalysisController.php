@@ -15,6 +15,7 @@ class CvAnalysisController extends Controller
             'cv_file' => 'required|file|mimes:pdf|max:5120', // max 5MB
         ]);
 
+        // NOTE - Simpan file request front end
         $file = $request->file('cv_file');
 
         // 2. Forward ke FastAPI pakai multipart
@@ -29,12 +30,7 @@ class CvAnalysisController extends Controller
             return back()->withErrors(['cv_file' => 'Gagal memproses CV, coba lagi.']);
         }
 
-        $result = $response->json();
-
         // 4. Balikin ke Inertia sebagai props
-        return Inertia::render('Result', [
-            'analysis' => $result,
-        ]);
-
+        return $response->json();
     }
 }

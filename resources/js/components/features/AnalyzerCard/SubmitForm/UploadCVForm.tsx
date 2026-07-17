@@ -1,6 +1,12 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
+import { AnalyzerResultData, RoleAnalysisRaw } from '../types';
 
-export default function UploadCVForm() {
+// NOTE mendefinisikan objek props yang diterima komponen, sesuaikan dengan parents
+interface UploadCVFormProps {
+    onSubmitSuccess: (result: RoleAnalysisRaw[]) => void;
+}
+
+export default function UploadCVForm({ onSubmitSuccess } : UploadCVFormProps ) {
     const [file, setFile] = useState<File | null>(null);
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -9,12 +15,33 @@ export default function UploadCVForm() {
         }
     };
 
-    const handleSubmit = (e: FormEvent) => {
+    //NOTE - Handle submittion file user    
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         if (!file) return;
-        // TODO: Implement actual file upload logic
-        console.log('Uploading CV:', file.name);
-    };
+
+        const formData = new FormData();
+        formData.append('cv_file', file); // field_name
+
+        const response = await fetch('/api/analyze-cv', {
+            method: 'POST',
+            body: formData,
+        });
+        console.log(response);
+
+        if (!response.ok) {
+            // TODO: handle error (misal tampilkan pesan gagal di UI)
+            console.error('Upload gagal');
+            return;
+        }
+
+        const raw: RoleAnalysisRaw[] = await response.json();
+        console.log(raw);
+
+
+        // NOTE - Menjalankan fungsi / mengirim data ke parents
+        onSubmitSuccess(raw);
+    };    
 
     return (
         <form onSubmit={handleSubmit} className="analyzer-form">
@@ -54,4 +81,25 @@ export default function UploadCVForm() {
             </button>
         </form>
     );
+}
+
+
+
+
+function mapToAnalyzerResult(raw: RoleAnalysisRaw[]): AnalyzerResultData {
+    const sorted = [...raw].sort((a, b) => b.score - a.score);
+    const selected = sorted[0]; // role dengan score tertinggi jadi default terpilih
+
+    return {
+        matchScore: selected.score,
+        matchLabel: selected.label,
+        recommendationRoles: raw.map((item) => ({
+            id: item.role,
+            name: item.role,
+        })),
+        topNeededSkills: [...new Set(selected.gap_skill)].map((skill) => ({
+            id: skill,
+            name: skill,
+        })),
+    };
 }

@@ -1,4 +1,3 @@
-import JobRoles from './HeroRoles'
 import AnalyzerCard  from '@/components/features/AnalyzerCard';
 
 export default function HeroSection() {

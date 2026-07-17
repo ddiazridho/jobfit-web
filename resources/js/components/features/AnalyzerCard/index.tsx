@@ -1,22 +1,22 @@
-import { useState } from 'react';
-import TabSwitcher from './TabSwitcher';
-import EnterSkillForm from './EnterSkillForm';
-import UploadCVForm from './UploadCVForm';
+import SubmitForm from "./SubmitForm";
+import { useState } from "react";
+import { AnalyzerResultData, RoleAnalysisRaw } from "./types";
+import Results from "./Results";
 
 export default function AnalyzerCard() {
-    const [activeTab, setActiveTab] = useState<'upload-cv' | 'enter-skill'>('enter-skill');
+    // NOTE - state interface AnalyzerResultData atau null untuk SubmitForm
+    const [result, setResult] = useState< RoleAnalysisRaw[] | null > (null);
 
     return (
         <div className="analyzer-card">
-            <TabSwitcher
-                activeTab={activeTab}
-                onChange={setActiveTab}
-            />
-
-            <div className="analyzer-card__content">
-                {activeTab === 'enter-skill' && <EnterSkillForm />}
-                {activeTab === 'upload-cv' && <UploadCVForm />}
-            </div>
+            {/* NOTE - Pengkondisian state */}
+            {result === null ? (
+                <SubmitForm onSubmitSuccess={setResult} />
+            ) : (
+                <Results 
+                    roles={result} 
+                    onAnalyzeAnother={() => setResult(null)} />
+            )}
         </div>
     );
 }
