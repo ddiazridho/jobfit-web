@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
+use Illuminate\Http\Client\ConnectionException;
 
 class CvAnalysisController extends Controller
 {
     public function analyze(Request $request)
     {
-        // 1. Validasi dulu di sisi Laravel
+        // NOTE - Validasi request frontend
         $request->validate([
             'cv_file' => 'required|file|mimes:pdf|max:5120', // max 5MB
         ]);
@@ -18,19 +19,33 @@ class CvAnalysisController extends Controller
         // NOTE - Simpan file request front end
         $file = $request->file('cv_file');
 
-        // 2. Forward ke FastAPI pakai multipart
-        $response = Http::timeout(60)->attach(
-            'cv_file',                          // field name
-            file_get_contents($file->getRealPath()), // file bytes
-            $file->getClientOriginalName() // file name
-        )->post('http://localhost:8001/analyze'); // ganti sesuai host FastAPI kamu
-
-        // 3. Handle kalau FastAPI error/down
-        if ($response->failed()) {
-            return back()->withErrors(['cv_file' => 'Gagal memproses CV, coba lagi.']);
+        // NOTE - Request service ai menggunakan multipart
+        try {
+            $response = Http::timeout(120)->attach(
+                'cv_file',                          // field name
+                file_get_contents($file->getRealPath()), // file bytes
+                $file->getClientOriginalName() // file name
+            )->post('http://localhost:8001/analyze'); // ganti sesuai host FastAPI kamu
+        } catch (ConnectionException) {
+            // FastAPI gak reachable sama sekali
+            return response()->json([
+                'success' => false,
+                'code' => 'AI_SERVICE_UNAVAILABLE',
+                'message' => 'AI service is currently unreachable. Please try again later.',
+                'filename' => $file->getClientOriginalName(),
+                "suggestion" => "Please"
+            ], 503);
         }
 
-        // 4. Balikin ke Inertia sebagai props
+        // NOTE - Forward error service ai
+        if ($response->failed()) {
+            return response()->json(
+                $response->json(),
+                $response->status()
+            );
+        }
+
+        // NOTE - Response success
         return $response->json();
     }
 }

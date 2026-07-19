@@ -1,17 +1,31 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
-import { AnalyzerResultData, RoleAnalysisRaw } from '../types';
+import { AnalyzerErrorResponse, RoleAnalysisRaw } from '../types';
 
 // NOTE mendefinisikan objek props yang diterima komponen, sesuaikan dengan parents
 interface UploadCVFormProps {
+    // NOTE - AnalyzerCard
     onSubmitSuccess: (result: RoleAnalysisRaw[]) => void;
+    onSubmitError: (error: AnalyzerErrorResponse) => void;
+    onSubmitStart: () => void;
+
+    // NOTE - Dari SubmitForm
+    file: File | null;
+    onFileChange: (file: File | null) => void;
 }
 
-export default function UploadCVForm({ onSubmitSuccess } : UploadCVFormProps ) {
-    const [file, setFile] = useState<File | null>(null);
+export default function UploadCVForm({ 
+    onSubmitSuccess,
+    onSubmitError,
+    onSubmitStart,
+    file,
+    onFileChange
+ } : UploadCVFormProps ) {
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
-            setFile(e.target.files[0]);
+        onFileChange(e.target.files[0]);
+        } else {
+        onFileChange(null);
         }
     };
 
@@ -20,29 +34,32 @@ export default function UploadCVForm({ onSubmitSuccess } : UploadCVFormProps ) {
         e.preventDefault();
         if (!file) return;
 
+        // TODO - Tindak lanjut loading state 
+        onSubmitStart();
+
         const formData = new FormData();
-        formData.append('cv_file', file); // field_name
+        formData.append('cv_file', file, file.name); // field_name
 
         const response = await fetch('/api/analyze-cv', {
             method: 'POST',
             body: formData,
         });
-        console.log(response);
 
         if (!response.ok) {
             // TODO: handle error (misal tampilkan pesan gagal di UI)
-            console.error('Upload gagal');
+            const error: AnalyzerErrorResponse = await response.json();
+            onSubmitError(error);
             return;
         }
 
         const raw: RoleAnalysisRaw[] = await response.json();
         console.log(raw);
 
-
         // NOTE - Menjalankan fungsi / mengirim data ke parents
         onSubmitSuccess(raw);
     };    
 
+    //  NOTE - UI STRUCTURE
     return (
         <form onSubmit={handleSubmit} className="analyzer-form">
             <div className="analyzer-form__upload-area">
@@ -81,25 +98,4 @@ export default function UploadCVForm({ onSubmitSuccess } : UploadCVFormProps ) {
             </button>
         </form>
     );
-}
-
-
-
-
-function mapToAnalyzerResult(raw: RoleAnalysisRaw[]): AnalyzerResultData {
-    const sorted = [...raw].sort((a, b) => b.score - a.score);
-    const selected = sorted[0]; // role dengan score tertinggi jadi default terpilih
-
-    return {
-        matchScore: selected.score,
-        matchLabel: selected.label,
-        recommendationRoles: raw.map((item) => ({
-            id: item.role,
-            name: item.role,
-        })),
-        topNeededSkills: [...new Set(selected.gap_skill)].map((skill) => ({
-            id: skill,
-            name: skill,
-        })),
-    };
 }

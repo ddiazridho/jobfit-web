@@ -23,3 +23,11 @@ export interface AnalyzerResultData {
   recommendationRoles: RoleRecommendation[];     // daftar semua role dari response
   topNeededSkills: SkillNeeded[];                // gap_skill dari role yang sedang dipilih
 }
+
+export interface AnalyzerErrorResponse {
+  code: string;
+  message: string;
+  filename: string;
+  suggestion: string;
+}
+ 

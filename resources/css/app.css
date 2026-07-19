@@ -14,25 +14,27 @@
    Design Tokens & CSS Variables
    ========================================================================== */
 :root {
-    --color-background: #F6F3EE;
-    --color-surface: #FFFFFF;
-
-    --color-text: #2D2B28;
-    --color-text-secondary: #6D675F;
-
-    --color-border: #E3DDD4;
-
-    --color-primary: #9B7157;
-    --color-primary-hover: #8A624B;
-
-    /* untuk result */
-    --color-accent: #8fcfc9;
-    --color-accent-hover: #5fb3ab;
-
-    --radius-card: 28px;
-    --radius-pill: 999px;
-    --radius-button: 12px;
-
+  --color-background: #f6f3ee;
+  --color-surface: #ffffff;
+ 
+  --color-text: #2d2b28;
+  --color-text-secondary: #6d675f;
+ 
+  --color-border: #e3ddd4;
+ 
+  --color-primary: #9b7157;
+  --color-primary-hover: #8a624b;
+ 
+  --color-accent: #8fcfc9;
+  --color-accent-hover: #5fb3ab;
+ 
+  --color-warning: #d9a441;
+  --color-warning-bg: #fbf1de;
+  --color-warning-border: #edcb87;
+ 
+  --radius-card: 28px;
+  --radius-pill: 999px;
+  --radius-button: 12px;
 }
 
 body {
@@ -710,10 +712,9 @@ body {
     display: flex;
     flex-direction: column;
     gap: 32px;
+    padding: 2rem;
 
     width: 100%;
-    padding: 32px;
-
     box-sizing: border-box;
     color: var(--color-text);
 }
@@ -909,5 +910,136 @@ body {
 
   .analyzer-results__skills-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+
+
+* ---------------------------------------------------------------
+   ERROR
+--------------------------------------------------------------- */
+.analyzer-error {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: var(--color-text);
+  padding: 2rem;
+}
+
+ 
+/* ---------------------------------------------------------------
+   File preview
+--------------------------------------------------------------- */
+.analyzer-error__file-preview {
+    padding: 3rem 1rem;
+    text-align: center;
+    background: #FCFAF7;
+    border: 2px dashed var(--color-border);
+    border-radius: 14px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    transition:
+        border-color .2s ease,
+        background-color .2s ease;
+}
+
+.analyzer-error__file-icon {
+    width: 28px;
+    height: 28px;
+    color: var(--color-text-secondary);
+}
+
+.analyzer-error__file-name {
+    margin: 0;
+    font-size: 15px;
+    color: var(--color-text);
+}
+
+
+/* ---------------------------------------------------------------
+   Error message box
+--------------------------------------------------------------- */
+.analyzer-error__message {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--color-warning-bg);
+    border: 1.5px solid var(--color-warning-border);
+    border-radius: 14px;
+    box-sizing: border-box;
+}
+
+.analyzer-error__message-icon {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    color: var(--color-warning);
+    flex-shrink: 0;
+}
+
+.analyzer-error__message-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.analyzer-error__message-title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+.analyzer-error__message-suggestion {
+    margin: 0;
+    font-size: 13.5px;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+}
+ 
+/* ---------------------------------------------------------------
+   Retry button
+--------------------------------------------------------------- */
+.analyzer-error__retry {
+    padding: 1rem 1.5rem;
+    border-radius: 14px;
+    border: 1.5px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: border-color .2s ease, background-color .2s ease;
+}
+
+.analyzer-error__retry:hover {
+    border-color: var(--color-primary);
+    background: #FCFAF7;
+}
+/* ---------------------------------------------------------------
+   Error code caption
+--------------------------------------------------------------- */
+.analyzer-error__code {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+ 
+/* ---------------------------------------------------------------
+   Responsive
+--------------------------------------------------------------- */
+@media (max-width: 480px) {
+  .analyzer-error {
+    padding: 28px 20px;
+    border-radius: 20px;
   }
 }
