@@ -4,6 +4,7 @@ import { RoleAnalysisRaw, AnalyzerErrorResponse } from "./types";
 import Results from "./Results";
 import ErrorState from "./Error";
 
+// NOTE - Untuk 4 state
 type AnalyzerViewState = 
 | {status : 'form'}
 | {status : 'loading'}
@@ -11,7 +12,7 @@ type AnalyzerViewState =
 | {status : 'error', error : AnalyzerErrorResponse}
 
 export default function AnalyzerCard() {
-    // NOTE - state interface AnalyzerResultData atau null untuk SubmitForm
+    // NOTE - state interface AnalyzerViewState 4 state
     const [view, setView] = useState< AnalyzerViewState > ({status : 'form'});
 
     return (

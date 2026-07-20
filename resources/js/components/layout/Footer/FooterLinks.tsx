@@ -1,22 +1,10 @@
 const FEATURE_LINKS = [
-    { label: 'Link Shortener', href: '/test' },
-    { label: 'Pages Customization', href: '/pages-customization' },
-    { label: 'QR Code Generator', href: '/qr-code-generator' },
-    { label: 'Advanced Analytics', href: '/advanced-analytics' },
-    { label: 'Custom Domains', href: '/custom-domains' },
-    { label: 'Campaign Management', href: '/campaign-management' },
-];
+    { label: 'Link Shortener', href: '/#platform' },
+]; 
 
 const SECURITY_ITEMS = [
-    { label: 'Google Safe Browsing', icon: 'shield' },
-    { label: 'Virus Total Protection', icon: 'shield' },
-    { label: 'Norton Safe Web', icon: 'shield' },
-    { label: 'SSL Encryption', icon: 'shield' },
-];
-
-const CONTACT_INFO = [
-    { label: 'R. Gomes de Carvalho, 1105 - Vila Olímpia, São Paulo - SP', icon: 'map-pin' },
-    { label: 'support@linkshort.app', icon: 'mail' },
+    { label: 'Google Safe Browsing', href: 'shield' },
+ 
 ];
 
 const LEGAL_LINKS = [
@@ -44,24 +32,32 @@ export default function FooterLinks() {
 
             <div className="footer-column">
                 <h3>Security</h3>
-                <ul>
-                    {SECURITY_ITEMS.map((item, index) => (
-                        <li key={index}>
-                            <span>{/* Map {item.icon} here */}</span> {item.label}
-                        </li>
-                    ))}
-                </ul>
+                <nav>
+                    <ul>
+                        {SECURITY_ITEMS.map((link, index) => (
+                            <li key={index}>
+                                <a href={link.href}>{link.label}</a>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
             </div>
 
             <div className="footer-column">
-                <h3>Contact & Legal</h3>
-                <address>
-                    {CONTACT_INFO.map((info, index) => (
-                        <p key={index}>
-                            <span>{/* Map {info.icon} here */}</span> {info.label}
-                        </p>
-                    ))}
-                </address>
+                <h3>Privacy</h3>
+                <nav>
+                    <ul>
+                        {LEGAL_LINKS.map((link, index) => (
+                            <li key={index}>
+                                <a href={link.href}>{link.label}</a>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
+            </div>
+
+            <div className="footer-column">
+                <h3>Test</h3>
                 <nav>
                     <ul>
                         {LEGAL_LINKS.map((link, index) => (

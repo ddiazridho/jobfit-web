@@ -1,5 +1,3 @@
-import { Link } from '@inertiajs/react';
-
 interface NavLink {
     label: string;
     href: string;
@@ -14,9 +12,9 @@ export default function NavLinks({ links }: NavLinksProps) {
         <ul className="nav-links">
             {links.map((link) => (
                 <li key={link.href} className="nav-links__item">
-                    <Link href={link.href} className="nav-links__anchor">
+                    <a href={link.href} className="nav-links__anchor">
                         {link.label}
-                    </Link>
+                    </a>
                 </li>
             ))}
         </ul>

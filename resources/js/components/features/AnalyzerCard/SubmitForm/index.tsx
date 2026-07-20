@@ -19,7 +19,7 @@ export default function SubmitForm(
 
     // NOTE  [state, function] = ['enter-skill', function()] untuk Tab Switcher
     const [activeTab, setActiveTab] = useState<'upload-cv' | 'enter-skill'>('upload-cv');
-    // NOTE - Variabel untuk UploadCVForm
+    // NOTE - Untuk state file tidak hilang, UploadCVForm
     const [file, setFile] = useState<File | null>(null);
 
     return (

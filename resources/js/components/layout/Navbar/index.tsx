@@ -3,7 +3,7 @@ import NavLinks from './NavLinks';
 import NavAuthButtons from './NavAuthButtons';
 
 const NAV_LINKS = [
-    { label: 'Platform', href: '/test' },
+    { label: 'Platform', href: '/#platform' },
     { label: 'Description', href: '#' },
     { label: 'Test', href: '#' }
 ];

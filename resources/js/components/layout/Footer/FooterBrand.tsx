@@ -2,8 +2,7 @@ export default function FooterBrand() {
     return (
         <div className="footer-brand-container">
             <div className="brand-header">
-                <span>{/* Replace with SVG Icon */}</span>
-                <h2>LinkShort</h2>
+                <span className="footer-logo__text">JOBFIT</span>
             </div>
 
             <p className="brand-description">

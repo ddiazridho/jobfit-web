@@ -1,6 +1,8 @@
 import FilePreview from "./FilePreview";
-import ErrorMessage from "./ErrorMessage";
+import ErrorAlert from "./ErrorAlert";
+import ErrorActions from "./ErrorAction";
 import { AnalyzerErrorResponse } from "../types";
+
 
 interface ErrorStateProps {
   error: AnalyzerErrorResponse;
@@ -12,11 +14,9 @@ export default function ErrorState({ error, onRetry }: ErrorStateProps) {
     <div className="analyzer-card__content analyzer-error">
       <FilePreview filename={error.filename} />
 
-      <ErrorMessage error={error} />
+      <ErrorAlert error={error} />
 
-      <button type="button" className="analyzer-error__retry" onClick={onRetry}>
-        Try another file
-      </button>
+      <ErrorActions onRetry={onRetry} />
     </div>
   );
 }

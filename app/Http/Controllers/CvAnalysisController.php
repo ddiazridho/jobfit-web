@@ -31,9 +31,9 @@ class CvAnalysisController extends Controller
             return response()->json([
                 'success' => false,
                 'code' => 'AI_SERVICE_UNAVAILABLE',
-                'message' => 'AI service is currently unreachable. Please try again later.',
+                'message' => 'AI service unreachable',
                 'filename' => $file->getClientOriginalName(),
-                "suggestion" => "Please"
+                "suggestion" => "Please try again later"
             ], 503);
         }
 

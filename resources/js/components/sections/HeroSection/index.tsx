@@ -2,7 +2,8 @@ import AnalyzerCard  from '@/components/features/AnalyzerCard';
 
 export default function HeroSection() {
     return (
-        <section className="hero-section">
+        // NOTE - id untuk anchor
+        <section id='platform' className="hero-section">
             <div className="hero-section__content">
                 <h1 className="hero-section__headline">
                     ARE YOUR SKILL INDUSTRY READY?
